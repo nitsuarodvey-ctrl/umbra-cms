@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umbra Generator Hub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Space Grotesk', 'sans-serif'] },
+                    colors: { neon: '#00f3ff', darkbg: '#050505', glass: 'rgba(255, 255, 255, 0.03)', border: 'rgba(255, 255, 255, 0.1)' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            color: white;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .input-dark {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            color: white;
+        }
+
+        .input-dark:focus {
+            border-color: #00f3ff;
+            outline: none;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+
+        .t-card {
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            opacity: 0.6;
+        }
+
+        .t-card:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+
+        .t-card.active {
+            border-color: #00f3ff;
+            opacity: 1;
+            background: rgba(0, 243, 255, 0.05);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body class="h-screen flex overflow-hidden">
+
+    <aside class="w-[400px] glass-panel border-r-0 flex flex-col z-20 h-full">
+        <div class="p-6 border-b border-white/5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded bg-neon flex items-center justify-center text-black font-bold">
+                    <i class="fa-solid fa-cube"></i>
+                </div>
+                <h1 class="font-bold text-lg tracking-widest text-white">UMBRA <span
+                        class="text-xs text-gray-500 font-normal">GEN</span></h1>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-1 rounded-full bg-black/40 border border-white/5">
+                <div id="status-dot" class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+                <span id="status-text" class="text-[10px] font-mono text-gray-400">OFFLINE</span>
+            </div>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 space-y-8">
+            <div>
+                <label class="text-xs text-gray-400 uppercase tracking-wider font-bold mb-3 block">1. Şablon
+                    Seçimi</label>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="grid grid-cols-3 gap-3">
+                        <div class="t-card active p-3 rounded-lg cursor-pointer bg-black/40"
+                            onclick="selectTemplate('corporate', this)">
+                            <div class="h-16 bg-gray-800 rounded mb-2 overflow-hidden relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-blue-900 to-black opacity-50"></div>
+                                <i
+                                    class="fa-solid fa-building absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/50"></i>
+                            </div>
+                            <p class="text-xs font-bold text-center">Kurumsal</p>
+                        </div>
+
+                        <div class="t-card p-3 rounded-lg cursor-pointer bg-black/40"
+                            onclick="selectTemplate('creative', this)">
+                            <div class="h-16 bg-gray-800 rounded mb-2 overflow-hidden relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-purple-900 to-black opacity-50">
+                                </div>
+                                <i
+                                    class="fa-solid fa-paintbrush absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/50"></i>
+                            </div>
+                            <p class="text-xs font-bold text-center">Ajans</p>
+                        </div>
+
+                        <div class="t-card p-3 rounded-lg cursor-pointer bg-black/40"
+                            onclick="selectTemplate('startup', this)">
+                            <div class="h-16 bg-gray-800 rounded mb-2 overflow-hidden relative">
+                                <div class="absolute inset-0 bg-gradient-to-br from-green-900 to-black opacity-50">
+                                </div>
+                                <i
+                                    class="fa-solid fa-rocket absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/50"></i>
+                            </div>
+                            <p class="text-xs font-bold text-center">Startup</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <label class="text-xs text-gray-400 uppercase tracking-wider font-bold block">2. Marka Kimliği</label>
+                <div class="group">
+                    <span class="text-[10px] text-gray-500 mb-1 block">MARKA ADI</span>
+                    <input type="text" id="companyInput" class="input-dark w-full px-4 py-3 rounded-lg text-sm"
+                        placeholder="Örn: Omega Yapı">
+                </div>
+                <div class="group">
+                    <span class="text-[10px] text-gray-500 mb-1 block">SEKTÖR</span>
+                    <input type="text" id="industryInput" class="input-dark w-full px-4 py-3 rounded-lg text-sm"
+                        placeholder="Örn: İnşaat & Mimarlık">
+                </div>
+                <div class="group">
+                    <span class="text-[10px] text-gray-500 mb-1 block">VİZYON & DETAYLAR</span>
+                    <textarea id="detailsInput" class="input-dark w-full px-4 py-3 rounded-lg text-sm h-24 resize-none"
+                        placeholder="Minimalist, güven veren..."></textarea>
+                </div>
+            </div>
+
+            <div class="space-y-3 p-4 glass-panel rounded-xl">
+                <label class="text-[10px] text-gray-500 uppercase tracking-widest font-bold block">3. Site
+                    Yapısı</label>
+                <div class="grid grid-cols-2 gap-2">
+                    <label class="flex items-center gap-2 text-xs cursor-pointer"><input type="checkbox" checked
+                            disabled class="accent-neon"> Anasayfa</label>
+                    <label class="flex items-center gap-2 text-xs cursor-pointer"><input type="checkbox"
+                            id="page-services" checked class="accent-neon"> Hizmetler</label>
+                    <label class="flex items-center gap-2 text-xs cursor-pointer"><input type="checkbox" id="page-about"
+                            checked class="accent-neon"> Hakkımızda</label>
+                    <label class="flex items-center gap-2 text-xs cursor-pointer"><input type="checkbox" id="page-blog"
+                            class="accent-neon"> Blog</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-6 border-t border-white/5 bg-black/20 space-y-3">
+            <button id="generateBtn"
+                class="w-full py-4 bg-neon text-black font-bold rounded-xl hover:brightness-110 transition-all flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,243,255,0.2)]">
+                <i class="fa-solid fa-bolt"></i> OLUŞTUR
+            </button>
+            <button id="downloadBtn"
+                class="w-full py-3 bg-white/5 text-gray-300 font-bold rounded-xl hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm border border-white/5">
+                <i class="fa-solid fa-download"></i> Kaynak Kodu İndir
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 bg-[#111] relative flex flex-col">
+        <div class="h-12 bg-[#0a0a0a] border-b border-white/5 flex items-center px-4 justify-between">
+            <div class="flex gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                <div class="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+            </div>
+            <div class="bg-black/50 px-8 py-1 rounded text-[10px] text-gray-500 font-mono border border-white/5">
+                localhost:5500/preview
+            </div>
+            <div class="text-xs text-gray-500"><i class="fa-solid fa-desktop"></i></div>
+        </div>
+
+        <div class="flex-1 relative overflow-hidden">
+            <iframe id="umbra-preview" src="templates/corporate.html" class="w-full h-full border-none"></iframe>
+            <div id="loader"
+                class="absolute inset-0 bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center hidden z-50">
+                <div class="w-16 h-16 border-4 border-neon/20 border-t-neon rounded-full animate-spin"></div>
+                <p class="text-neon font-mono text-xs mt-6 tracking-[0.2em] animate-pulse">GENERATING ARCHITECTURE...
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const LM_STUDIO_API = "http://localhost:1234/v1/chat/completions";
+        let activeTemplate = 'corporate';
+
+        async function checkConnection() {
+            const dot = document.getElementById('status-dot');
+            const txt = document.getElementById('status-text');
+            try {
+                await fetch("http://localhost:1234/v1/models");
+                dot.className = "w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_lime]";
+                txt.innerText = "ONLINE"; txt.className = "text-[10px] font-mono text-green-500";
+            } catch (e) {
+                dot.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
+                txt.innerText = "OFFLINE"; txt.className = "text-[10px] font-mono text-red-500";
+            }
+        }
+        setInterval(checkConnection, 5000); checkConnection();
+
+        window.selectTemplate = (templateId, card) => {
+            activeTemplate = templateId;
+            document.querySelectorAll('.t-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            document.getElementById('umbra-preview').src = `templates/${templateId}.html`;
+        }
+
+        document.getElementById('generateBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('generateBtn');
+            const loader = document.getElementById('loader');
+
+            btn.disabled = true; loader.classList.remove('hidden');
+
+            const payload = {
+                company: document.getElementById('companyInput').value || "Umbra Corp",
+                industry: document.getElementById('industryInput').value || "Technology",
+                details: document.getElementById('detailsInput').value || "Modern design."
+            };
+
+            const prompt = `Kesinlikle TÜRKÇE yaz. Marka: ${payload.company}, Sektör: ${payload.industry}. 
+İçerik planı: Hero alanı için vurucu bir başlık, alt başlık ve slogan. 3 adet sektörel hizmet ve 4 partner marka adı üret.`;
+
+            try {
+                const response = await fetch(LM_STUDIO_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [
+                            {
+                                role: "system",
+                                content: `Sen bir JSON makinisisin. Sadece PURE JSON dönersin. Dil her zaman TÜRKÇE. 
+                  Yapı: {"brand_name":"", "design":{"primary_color":"#3b82f6"}, "hero":{"tagline":"","title":"","subtitle":""}, "services":[{"title":"","desc":"","icon":"fa-solid fa-star"}], "brands":[], "contact":{"title":"","address":"","email":"","phone":""}}`
+                            },
+                            { role: "user", content: prompt }
+                        ],
+                        temperature: 0.1, // Küstürmeyen, en garantici ayar
+                        max_tokens: 1000
+                    })
+                });
+
+                const result = await response.json();
+                const content = result.choices[0].message.content;
+                const jsonMatch = content.match(/\{[\s\S]*\}/);
+
+                if (jsonMatch) {
+                    try {
+                        // 1. ADIM: Ham metni temizle
+                        let cleanJson = jsonMatch[0]
+                            .replace(/\/\/.*$/gm, '')           // Yorum satırlarını sil (//...)
+                            .replace(/\/\*[\s\S]*?\*\//g, '')   // Blok yorumları sil (/*...*/)
+                            .replace(/,(\s*[\]\}])/g, '$1')     // Sondaki gereksiz virgülleri sil (trailing comma)
+                            .replace(/[\u0000-\u001F\u007F-\u009F]/g, ""); // Görünmez karakterleri temizle
+
+                        // 2. ADIM: Parse et
+                        const data = JSON.parse(cleanJson);
+
+                        const iframe = document.getElementById('umbra-preview');
+                        if (iframe && iframe.contentWindow) {
+                            iframe.contentWindow.postMessage({ type: 'UMBRA_UPDATE', data: data }, '*');
+                        }
+                    } catch (parseError) {
+                        console.error("JSON Tamir Edilemedi:", parseError);
+                        console.log("Hatalı Ham Veri:", jsonMatch[0]); // Hatayı görmek için konsola bas
+                        alert("Üretilen içerik formatı bozuk geldi, tekrar 'OLUŞTUR' demeyi dene.");
+                    }
+                }
+            } catch (error) {
+                console.error("Gen Error:", error);
+                alert("Üretim hatası. Bağlantıyı kontrol et.");
+            } finally {
+                btn.disabled = false; loader.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('downloadBtn').addEventListener('click', () => {
+            const iframe = document.getElementById('umbra-preview');
+            if (iframe.contentDocument) {
+                // Iframe'in o anki canlı kopyasını alıyoruz
+                let contentClone = iframe.contentDocument.documentElement.cloneNode(true);
+
+                // İÇİNDEKİ TÜM SCRIPT'LERİ İMHA ET
+                const scripts = contentClone.querySelectorAll('script');
+                scripts.forEach(s => s.remove());
+
+                // O anki HTML metnini al
+                const html = contentClone.outerHTML;
+
+                const blob = new Blob([html], { type: 'text/html' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = `umbra-site.html`;
+                a.click();
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Syne', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+                    cursor: { 'none': 'none' }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root { --primary: #ccff00; --bg: #0a0a0a; --text: #ffffff; }
+        body { 
+            background-color: var(--bg); color: var(--text); cursor: none; overflow-x: hidden;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #cursor {
+            width: 20px; height: 20px; background: var(--primary); border-radius: 50%;
+            position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%);
+            mix-blend-mode: difference; transition: width 0.3s, height 0.3s, transform 0.1s;
+        }
+        body:hover #cursor { opacity: 1; }
+        .hover-target:hover ~ #cursor, .hover-target:hover #cursor { transform: scale(3); }
+        .noise {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 90; opacity: 0.05;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .outline-text { -webkit-text-stroke: 1px var(--primary); color: transparent; }
+        .marquee-container { display: flex; overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: flex; animation: scroll 15s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    </style>
+</head>
+<body>
+
+    <div id="cursor"></div>
+    <div class="noise"></div>
+
+    <div class="fixed top-0 w-full flex justify-between items-center p-6 z-50 mix-blend-difference text-white border-b border-white/10 backdrop-blur-sm">
+        <span id="brand" class="text-2xl font-black uppercase tracking-tighter">AGENCY</span>
+        <div class="font-mono text-xs hidden md:block">EST. 2026 // UMBRA ENGINE</div>
+        <button class="border border-white px-6 py-2 font-mono text-xs uppercase hover:bg-white hover:text-black transition-colors">Menu</button>
+    </div>
+
+    <header class="min-h-screen flex flex-col justify-end p-6 pb-20 relative">
+        <div class="absolute top-1/2 right-10 -translate-y-1/2 w-64 text-right hidden md:block">
+            <p class="font-mono text-xs opacity-50 mb-2">MANIFESTO</p>
+            <p id="hero-sub" class="text-sm leading-relaxed">We reject the ordinary.</p>
+        </div>
+        <h1 id="hero-title" class="text-[11vw] font-bold leading-[0.85] uppercase tracking-tight break-words z-10 mix-blend-difference">
+            DIGITAL <br> <span class="outline-text">ANARCHY</span>
+        </h1>
+        <div class="mt-10 flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full border border-[var(--primary)] flex items-center justify-center animate-bounce">
+                <i class="fa-solid fa-arrow-down text-[var(--primary)]"></i>
+            </div>
+            <span class="font-mono text-xs text-[var(--primary)]">SCROLL FOR IMPACT</span>
+        </div>
+    </header>
+
+    <div class="bg-[var(--primary)] text-black py-6 marquee-container border-y-4 border-black transform -rotate-1 scale-105 origin-left z-20 relative">
+        <div id="marquee-text" class="marquee-content text-6xl font-black uppercase tracking-tighter"></div>
+    </div>
+
+    <section class="py-20 px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="h-[50vh] bg-gray-800 relative group overflow-hidden border border-white/20">
+                <img src="https://picsum.photos/seed/art1/800/800?grayscale" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                <div class="absolute bottom-4 left-4 font-mono text-xs bg-black text-white px-2 py-1">PROJECT 01</div>
+            </div>
+            <div class="h-[50vh] bg-gray-800 relative group overflow-hidden border border-white/20 mt-20">
+                <img src="https://picsum.photos/seed/art2/800/800?grayscale" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                <div class="absolute bottom-4 left-4 font-mono text-xs bg-black text-white px-2 py-1">PROJECT 02</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="px-6 py-20 space-y-0"></section>
+
+    <footer id="contact" class="px-6 pt-20 pb-10 border-t border-white/20 mt-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div>
+                <h2 class="text-[5rem] leading-[0.9] font-black uppercase mb-10">Let's <br>Create.</h2>
+                <div class="font-mono text-sm space-y-1 opacity-60">
+                    <p id="address-text">101 Creative Blvd, Design City</p>
+                    <p>EST. 2026 © UMBRA</p>
+                </div>
+            </div>
+            <form class="space-y-8 mt-4">
+                <div class="group"><label class="font-mono text-xs text-[var(--primary)] block mb-2">WHO ARE YOU?</label><input type="text" placeholder="NAME / BRAND" class="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-[var(--primary)] focus:outline-none transition-colors placeholder-white/10 uppercase"></div>
+                <div class="group"><label class="font-mono text-xs text-[var(--primary)] block mb-2">HOW CAN WE HELP?</label><input type="email" placeholder="YOUR@EMAIL.COM" class="w-full bg-transparent border-b-2 border-white/20 py-4 text-2xl font-bold focus:border-[var(--primary)] focus:outline-none transition-colors placeholder-white/10 uppercase"></div>
+                <button class="bg-[var(--primary)] text-black px-10 py-4 font-bold text-xl uppercase hover:scale-105 transition-transform w-full md:w-auto">Send It</button>
+            </form>
+        </div>
+        <a href="#" id="email-link" class="block text-[8vw] font-black text-center mt-32 hover:text-transparent hover:outline-text transition-all tracking-tighter">HELLO@AGENCY.COM</a>
+    </footer>
+
+    <script>
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => { cursor.style.left = e.clientX + 'px'; cursor.style.top = e.clientY + 'px'; });
+        document.querySelectorAll('a, button, input, h1, h2, .group').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%, -50%) scale(4)'; cursor.style.opacity = '0.5'; });
+            el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%, -50%) scale(1)'; cursor.style.opacity = '1'; });
+        });
+
+        window.addEventListener('message', (e) => {
+            if(!e.data || e.data.type !== 'UMBRA_UPDATE') return;
+            const d = e.data.data;
+            document.documentElement.style.setProperty('--primary', d.design.primary_color);
+            if(d.design.theme_mode === 'light') {
+                document.documentElement.style.setProperty('--bg', '#f0f0f0');
+                document.documentElement.style.setProperty('--text', '#111111');
+            } else {
+                document.documentElement.style.setProperty('--bg', '#0a0a0a');
+                document.documentElement.style.setProperty('--text', '#ffffff');
+            }
+            if(d.brand_name) {
+                document.getElementById('brand').innerText = d.brand_name;
+                const mText = ` ${d.brand_name} /// DIGITAL EXPERIENCE /// ${d.brand_name} /// NO LIMITS ///`;
+                document.getElementById('marquee-text').innerText = mText.repeat(5);
+            }
+            if(d.hero) {
+                document.getElementById('hero-title').innerHTML = d.hero.title;
+                document.getElementById('hero-sub').innerText = d.hero.subtitle;
+            }
+            if(d.services) {
+                document.getElementById('services').innerHTML = d.services.map((s, i) => `
+                    <div class="group border-t border-white/20 py-10 hover:bg-[var(--primary)] hover:text-black transition-colors duration-300 cursor-none relative overflow-hidden">
+                        <div class="flex flex-col md:flex-row md:items-baseline justify-between gap-4 px-4">
+                            <span class="font-mono text-xs md:text-sm opacity-50 group-hover:opacity-100">0${i+1} / SERVICE</span>
+                            <h3 class="text-4xl md:text-7xl font-black uppercase tracking-tighter group-hover:translate-x-4 transition-transform">${s.title}</h3>
+                            <i class="fas ${s.icon} text-2xl opacity-0 group-hover:opacity-100 transition-opacity"></i>
+                        </div>
+                        <p class="mt-4 md:ml-auto md:w-1/2 px-4 font-mono text-sm opacity-60 group-hover:opacity-100 max-w-xl">${s.desc}</p>
+                    </div>`).join('');
+            }
+            if(d.contact) {
+                document.getElementById('email-link').innerText = d.contact.email;
+                document.getElementById('address-text').innerText = d.contact.address;
+            }
+        });
+    </script>
+</body>
+</html>

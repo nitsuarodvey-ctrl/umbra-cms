@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                    animation: { 'scroll': 'scroll 30s linear infinite' },
+                    keyframes: { scroll: { '0%': { transform: 'translateX(0)' }, '100%': { transform: 'translateX(-50%)' } } }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root { --primary: #3b82f6; }
+        body { transition: all 0.5s; background-color: #020617; }
+        
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+        }
+
+        .glass { 
+            backdrop-filter: blur(16px); 
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-slate-200 selection:bg-[var(--primary)] selection:text-white">
+    
+    <div class="fixed inset-0 bg-grid pointer-events-none z-0"></div>
+    <div class="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-[var(--primary)] opacity-10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+
+    <nav class="fixed w-full z-50 glass top-0 border-b border-white/5 bg-black/20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <span id="brand" class="text-xl font-bold uppercase tracking-widest font-display flex items-center gap-2">
+                <div class="w-3 h-3 bg-[var(--primary)] rounded-full"></div> CORP
+            </span>
+            <div class="hidden md:flex gap-8 text-sm font-medium opacity-70">
+                <a href="#services" class="hover:text-[var(--primary)] transition-colors">Çözümler</a>
+                <a href="#stats" class="hover:text-[var(--primary)] transition-colors">Rakamlar</a>
+                <a href="#contact" class="hover:text-[var(--primary)] transition-colors">İletişim</a>
+            </div>
+            <a href="#contact" class="px-5 py-2 bg-white/10 hover:bg-[var(--primary)] hover:text-black border border-white/10 transition-all font-bold rounded-lg text-xs tracking-wider uppercase">Teklif Al</a>
+        </div>
+    </nav>
+
+    <header class="relative min-h-screen flex flex-col justify-center items-center text-center px-6 pt-20 z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--primary)]/30 bg-[var(--primary)]/10 text-[var(--primary)] text-xs font-bold tracking-widest uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-[var(--primary)] animate-pulse"></span>
+            <span id="hero-tag">Enterprise Ready</span>
+        </div>
+        
+        <h1 id="hero-title" class="text-5xl md:text-8xl font-bold font-display mb-6 max-w-5xl leading-[1.1] bg-clip-text text-transparent bg-gradient-to-b from-white to-white/50">
+            Geleceği İnşa Ediyoruz
+        </h1>
+        
+        <p id="hero-sub" class="text-lg md:text-xl text-slate-400 max-w-2xl font-light leading-relaxed mb-10">
+            Global standartlarda teknoloji ve danışmanlık hizmetleri ile işinizi dönüştürün.
+        </p>
+
+        <div class="flex gap-4">
+            <button class="px-8 py-4 bg-[var(--primary)] text-white font-bold rounded-lg hover:shadow-[0_0_20px_var(--primary)] transition-all">Hemen Başla</button>
+            <button class="px-8 py-4 glass hover:bg-white/10 transition-all rounded-lg font-bold">Daha Fazla</button>
+        </div>
+    </header>
+
+    <div class="relative z-10 border-y border-white/5 bg-black/20 py-8 overflow-hidden">
+        <div class="flex items-center gap-16 animate-scroll whitespace-nowrap w-max opacity-40 grayscale hover:grayscale-0 transition-all duration-500" id="brands-marquee"></div>
+    </div>
+
+    <section id="stats" class="py-20 border-b border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <h3 class="text-4xl font-bold font-display text-[var(--primary)]">10+</h3>
+                <p class="text-sm text-slate-500 uppercase tracking-wider mt-2">Yıllık Tecrübe</p>
+            </div>
+            <div>
+                <h3 class="text-4xl font-bold font-display text-white">500+</h3>
+                <p class="text-sm text-slate-500 uppercase tracking-wider mt-2">Tamamlanan Proje</p>
+            </div>
+            <div>
+                <h3 class="text-4xl font-bold font-display text-white">%99</h3>
+                <p class="text-sm text-slate-500 uppercase tracking-wider mt-2">Müşteri Memnuniyeti</p>
+            </div>
+            <div>
+                <h3 class="text-4xl font-bold font-display text-[var(--primary)]">24/7</h3>
+                <p class="text-sm text-slate-500 uppercase tracking-wider mt-2">Kesintisiz Destek</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="max-w-7xl mx-auto px-6 py-24 relative z-10">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+            <div>
+                <h2 class="text-4xl font-bold font-display mb-4">Hizmetlerimiz</h2>
+                <div class="w-20 h-1 bg-[var(--primary)]"></div>
+            </div>
+            <p class="text-slate-400 max-w-md text-right hidden md:block">İhtiyaçlarınıza özel, ölçeklenebilir ve güvenli çözümler sunuyoruz.</p>
+        </div>
+
+        <div id="services-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <section id="contact" class="max-w-7xl mx-auto px-6 py-24 relative z-10">
+        <div class="glass p-8 md:p-12 rounded-3xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-[var(--primary)] font-bold tracking-widest uppercase text-sm mb-2 block">İLETİŞİM</span>
+                <h2 id="contact-title" class="text-4xl font-bold font-display mb-6">Bir Projeniz mi var?</h2>
+                <div class="space-y-6 mt-8">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--primary)]"><i class="fa-solid fa-envelope"></i></div>
+                        <div><p class="text-xs text-slate-500 uppercase">E-Posta</p><p id="mail" class="font-medium text-lg">info@corp.com</p></div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--primary)]"><i class="fa-solid fa-phone"></i></div>
+                        <div><p class="text-xs text-slate-500 uppercase">Telefon</p><p id="tel" class="font-medium text-lg">+90 212 000 0000</p></div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-[var(--primary)]"><i class="fa-solid fa-location-dot"></i></div>
+                        <div><p class="text-xs text-slate-500 uppercase">Ofis</p><p id="addr" class="font-medium text-lg">İstanbul, Türkiye</p></div>
+                    </div>
+                </div>
+            </div>
+            <form class="space-y-4 bg-black/20 p-8 rounded-2xl border border-white/5">
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="text" placeholder="Adınız" class="w-full p-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-[var(--primary)] focus:outline-none transition-colors">
+                    <input type="text" placeholder="Soyadınız" class="w-full p-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-[var(--primary)] focus:outline-none transition-colors">
+                </div>
+                <input type="email" placeholder="E-Posta" class="w-full p-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-[var(--primary)] focus:outline-none transition-colors">
+                <textarea rows="4" placeholder="Mesajınız..." class="w-full p-4 bg-white/5 border border-white/10 rounded-lg text-white focus:border-[var(--primary)] focus:outline-none transition-colors resize-none"></textarea>
+                <button class="w-full py-4 bg-[var(--primary)] text-white font-bold rounded-lg hover:brightness-110 transition-all">GÖNDER</button>
+            </form>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 py-12 relative z-10 bg-black/40">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center opacity-50 text-sm">
+            <p>&copy; 2026 Powered by <span class="text-[var(--primary)] font-bold">UMBRA CMS</span></p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white">Gizlilik</a>
+                <a href="#" class="hover:text-white">Şartlar</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener('message', (e) => {
+    if(!e.data || e.data.type !== 'UMBRA_UPDATE') return;
+    const d = e.data.data;
+    
+    // Renk ve Brand
+    if(d.design?.primary_color) document.documentElement.style.setProperty('--primary', d.design.primary_color);
+    if(d.brand_name) document.getElementById('brand').innerHTML = `<div class="w-3 h-3 bg-[var(--primary)] rounded-full"></div> ${d.brand_name}`;
+    
+    // Hero
+    if(d.hero) {
+        document.getElementById('hero-title').innerText = d.hero.title || "";
+        document.getElementById('hero-sub').innerText = d.hero.subtitle || "";
+        document.getElementById('hero-tag').innerText = d.hero.tagline || "";
+    }
+    
+    // Hizmetler (Fix noktası burası)
+    const servicesGrid = document.getElementById('services-grid');
+    if(servicesGrid && d.services && Array.isArray(d.services)) {
+        servicesGrid.innerHTML = d.services.map((s, i) => `
+            <div class="${i === 0 ? 'md:col-span-2 md:row-span-2 bg-gradient-to-br from-[var(--primary)] to-blue-900 text-white' : 'glass'} p-8 rounded-2xl group transition-all">
+                <div class="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center text-xl mb-6"><i class="${s.icon}"></i></div>
+                <h3 class="text-2xl font-bold mb-3">${s.title}</h3>
+                <p class="opacity-70">${s.desc}</p>
+            </div>
+        `).join('');
+    }
+
+    // Brands Marquee
+    if(d.brands && Array.isArray(d.brands)) {
+        const brandsHtml = d.brands.map(b => `<span class="text-3xl font-bold mx-12 flex items-center gap-4"><i class="fa-solid fa-certificate text-[var(--primary)] text-sm"></i> ${b}</span>`).join('');
+        document.getElementById('brands-marquee').innerHTML = brandsHtml + brandsHtml;
+    }
+});
+    </script>
+</body>
+</html>
